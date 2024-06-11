@@ -2,6 +2,7 @@ package com.ltp.gradesubmission.web;
 
 import javax.validation.Valid;
 
+import com.ltp.gradesubmission.userDTO.UserDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class UserController {
 	}
 
     @PostMapping("/register")
-	public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+	public ResponseEntity<UserDTO> createUser(@Valid @RequestBody User user) {
 		return new ResponseEntity<>(userService.saveUser(user),HttpStatus.CREATED);
 	}
 
