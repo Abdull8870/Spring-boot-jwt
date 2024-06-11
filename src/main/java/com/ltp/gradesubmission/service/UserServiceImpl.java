@@ -2,7 +2,7 @@ package com.ltp.gradesubmission.service;
 
 import java.util.Optional;
 
-import com.ltp.gradesubmission.userDTO.UserDTO;
+import com.ltp.gradesubmission.dataDTO.UserDTO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

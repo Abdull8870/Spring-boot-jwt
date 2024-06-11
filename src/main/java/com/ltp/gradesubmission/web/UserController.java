@@ -2,7 +2,7 @@ package com.ltp.gradesubmission.web;
 
 import javax.validation.Valid;
 
-import com.ltp.gradesubmission.userDTO.UserDTO;
+import com.ltp.gradesubmission.dataDTO.UserDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

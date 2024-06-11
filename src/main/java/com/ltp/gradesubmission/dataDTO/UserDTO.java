@@ -1,4 +1,4 @@
-package com.ltp.gradesubmission.userDTO;
+package com.ltp.gradesubmission.dataDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
