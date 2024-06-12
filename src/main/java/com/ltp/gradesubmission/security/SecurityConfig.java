@@ -1,6 +1,8 @@
 package com.ltp.gradesubmission.security;
 
 
+import com.ltp.gradesubmission.security.filter.AuthenticationFilter;
+import com.ltp.gradesubmission.security.filter.FilterOne;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,14 +18,20 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        AuthenticationFilter authenticationFilter=new AuthenticationFilter();
+        authenticationFilter.setFilterProcessesUrl("/authenticate");
         http        
             .headers().frameOptions().disable() // New Line: the h2 console runs on a "frame". By default, Spring Security prevents rendering within an iframe. This line disables its prevention.
             .and()
             .csrf().disable()
             .authorizeRequests().antMatchers(SecurityConstants.REGISTER_PATH).permitAll()
             .antMatchers("/h2/**").permitAll() // New Line: allows us to access the h2 console without the need to authenticate. ' ** '  instead of ' * ' because multiple path levels will follow /h2.
-            .anyRequest().authenticated()
-            .and()
+            .anyRequest().authenticated().
+                and().
+                addFilterBefore(new FilterOne(),AuthenticationFilter.class)
+                        .
+                addFilter(authenticationFilter)
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build();
     }
