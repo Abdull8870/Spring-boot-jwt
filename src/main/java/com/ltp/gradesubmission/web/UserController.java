@@ -2,6 +2,7 @@ package com.ltp.gradesubmission.web;
 
 import javax.validation.Valid;
 
+import com.ltp.gradesubmission.dataDTO.UserDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +26,14 @@ public class UserController {
     UserService userService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id) {
-		return new ResponseEntity<>(HttpStatus.OK);
+	public ResponseEntity<String> findById(@PathVariable Long id) {
+		String user=userService.getUser(id).getUsername();
+		return new ResponseEntity<>(user,HttpStatus.OK);
 	}
 
     @PostMapping("/register")
-	public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+	public ResponseEntity<UserDTO> createUser(@Valid @RequestBody User user) {
+		System.out.println("Inside create user");
 		return new ResponseEntity<>(userService.saveUser(user),HttpStatus.CREATED);
 	}
 

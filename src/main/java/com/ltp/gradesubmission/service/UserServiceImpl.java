@@ -2,6 +2,7 @@ package com.ltp.gradesubmission.service;
 
 import java.util.Optional;
 
+import com.ltp.gradesubmission.dataDTO.UserDTO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(User user) {
+    public UserDTO saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-         return userRepository.save(user);
+        User save = userRepository.save(user);
+        UserDTO userDTO=UserDTO.
+                builder().
+                username(save.getUsername()).
+                Id(save.getId()).build();
+         return userDTO;
+    }
+
+    @Override
+    public User getUser(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+        return this.unwrapUser(user,404L);
     }
 
     static User unwrapUser(Optional<User> entity, Long id) {
